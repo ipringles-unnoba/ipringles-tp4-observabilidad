@@ -1,0 +1,32 @@
+
+# Deshabilitar Alertmanager
+alertmanager:
+  enabled: false
+
+# Configuración de Grafana
+grafana:
+  enabled: true
+  resources:
+    requests:
+      memory: 256Mi
+    limits:
+      memory: 512Mi
+
+  # Configurar Loki como fuente de datos adicional
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      access: proxy
+      url: http://loki.observabilidad.svc.cluster.local:3100
+      isDefault: false
+
+# Deshabilitar el monitoreo de componentes
+# del plano de control inaccesibles desde Prometheus
+kubeControllerManager:
+  enabled: false
+
+kubeEtcd:
+  enabled: false
+
+kubeScheduler:
+  enabled: false
